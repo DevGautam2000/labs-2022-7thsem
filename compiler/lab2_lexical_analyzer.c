@@ -12,7 +12,7 @@
 //syntax to be parsed
 const char* inp = "for(i=10;i<100;i++);";
 
-//enum storing tokrn types
+//enum storing token types
 enum TokenType { 
     OP, //operator
     ID, //identifier
@@ -97,7 +97,7 @@ void emptyBuffer(struct Token *token){
                 return;
             }
         
-     //else the string is a number
+     //else the string is an identifier
     token->tokenType=tokenTypeStrings[ID];
     endToken(token,temp);
     buffInd=0;
