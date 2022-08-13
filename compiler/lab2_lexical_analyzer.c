@@ -36,7 +36,7 @@ const char *tokenTypeStrings[] = {
 const char* KEYWORDS[] = {"for","int","if"};
 const char OPERATORS[] = {'<','=','+','*','-','/','%','>'};
 const char NUMBERS[] = {'0','1','2','3','4','5','6','7','8','9'};
-const char SPECIAL_CHAR[]= {'(',')',';','{','}'};;
+const char SPECIAL_CHAR[]= {'(',')',';','{','}'};
 const char COMMA=',';
 const char WHITE_SPACE=' ';
 
