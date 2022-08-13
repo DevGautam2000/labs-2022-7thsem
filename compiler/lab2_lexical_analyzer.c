@@ -16,7 +16,7 @@ const char* inp = "for(i=10;i<100;i++);";
 enum TokenType { 
     OP, //operator
     ID, //identifier
-    STC, //special terminal character
+    STC, //special token class
     KW, //keyword
     NUM, //number
     WS //white space
@@ -26,7 +26,7 @@ enum TokenType {
 const char *tokenTypeStrings[] = {
     "OPERATOR",
     "IDENTIFIER",
-    "SPECIAL TERMINAL CHARACTER",
+    "SPECIAL TOKEN CLASS",
     "KEYWORD",
     "NUMBER",
     "WHITESPACE"
@@ -34,15 +34,16 @@ const char *tokenTypeStrings[] = {
 
 //list of keywords,operators,numbers,etc., to be parsed
 const char* KEYWORDS[] = {"for","int","if"};
-const char OPERATORS[] = {'(',')','<','=','+','*','-','/','%','>','{','}'};
+const char OPERATORS[] = {'<','=','+','*','-','/','%','>'};
 const char NUMBERS[] = {'0','1','2','3','4','5','6','7','8','9'};
-const char SPECIAL_CHAR = ';';
+const char SPECIAL_CHAR[]= {'(',')',';','{','}'};;
 const char COMMA=',';
 const char WHITE_SPACE=' ';
 
 const int kw_l = sizeof(KEYWORDS)/sizeof(KEYWORDS[0]);
 const int op_l = sizeof(OPERATORS)/sizeof(OPERATORS[0]);
 const int num_l = sizeof(NUMBERS)/sizeof(NUMBERS[0]);
+const int sc_l = sizeof(SPECIAL_CHAR)/sizeof(SPECIAL_CHAR[0]);
 
 //buffer to store the keywords and identifiers
 char buffer[20];
@@ -115,14 +116,17 @@ void parse(const char *s){
                 emptyBuffer(&currToken);
             
             int flag=0;
-            //check for special terminal character
-            if(s[i] == SPECIAL_CHAR){
-                if(buffInd > 0)
+            //check for special token class
+            for(int j=0; j<sc_l; j++){
+                if(s[i] == SPECIAL_CHAR[j]){
+                    
+                    if(buffInd > 0)
                         emptyBuffer(&currToken);
 
-                currToken.tokenType = tokenTypeStrings[STC];
-                endTokenWithCharacter(&currToken,s[i]);  
-                flag=1;
+                    currToken.tokenType = tokenTypeStrings[STC];
+                    endTokenWithCharacter(&currToken,s[i]);  
+                    flag=1;
+                }
             }
 
             //check for operators
@@ -164,18 +168,18 @@ LEXICAL ANALYZER
 SYNTAX: for(i=10;i<100;i++);
 
 Token 1: < KEYWORD , for >
-Token 2: < OPERATOR , ( >
+Token 2: < SPECIAL TOKEN CLASS , ( >
 Token 3: < IDENTIFIER , i >
 Token 4: < OPERATOR , = >
 Token 5: < NUMBER , 10 >
-Token 6: < SPECIAL TERMINAL CHARACTER , ; >
+Token 6: < SPECIAL TOKEN CLASS , ; >
 Token 7: < IDENTIFIER , i >
 Token 8: < OPERATOR , < >
 Token 9: < NUMBER , 100 >
-Token 10: < SPECIAL TERMINAL CHARACTER , ; >
+Token 10: < SPECIAL TOKEN CLASS , ; >
 Token 11: < IDENTIFIER , i >
 Token 12: < OPERATOR , ++ >
-Token 13: < OPERATOR , ) >
-Token 14: < SPECIAL TERMINAL CHARACTER , ; >
+Token 13: < SPECIAL TOKEN CLASS , ) >
+Token 14: < SPECIAL TOKEN CLASS , ; >
 
  */
