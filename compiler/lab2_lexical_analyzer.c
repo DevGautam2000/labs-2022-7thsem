@@ -107,8 +107,8 @@ void emptyBuffer(struct Token *token){
 //function to parse the given syntax
 void parse(const char *s){
         static struct Token currToken;
-        currToken.tokenNum=1;
        
+        currToken.tokenNum=1;
         
         for(int i=0;i <strlen(inp); i++){
             if(s[i] == COMMA ) continue;
