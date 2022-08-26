@@ -27,7 +27,7 @@ struct Grammar{
 };
 
 
-struct Grammar grammar = {"","",' ',"S->Sad|d|ce"} ;
+struct Grammar grammar = {"","",' ',"S -> Sad|d|ce"} ;
 struct Grammar newGrammar ;
 int ngInd=0,gl=0,vInd=0,tInd=0;
 
@@ -85,7 +85,7 @@ void removeLeftRecursion(const char* g){
 					t = g[j+1];
 					push(&t);
 
-					if(g[j+2] >= 'a' && g[j+2] <= 'z'){
+					if(islower(g[j+2])){
 						t= g[j+2];
 						push(&t);
 					}
@@ -147,7 +147,7 @@ GRAMMAR:
 V: S, 
 T: a, c, d, e, 
 S: S 
-P: S->Sad|d|ce 
+P: S->Sad | d | ce 
 
 Grammar after removing left recursion: 
 
