@@ -69,7 +69,7 @@ void push(char *arr){
 		newGrammar.P[ngInd++] = *arr++;
 }
 
-//function to remove left recusrion from theh grammar
+//function to remove left recusrion from the grammar
 void removeLeftRecursion(const char* g){
 	ngInd=0;
 	for(int i=1; i<gl; i++)
@@ -77,7 +77,7 @@ void removeLeftRecursion(const char* g){
 			
 			char t = g[i];
 			push(&t);
-			push("->");
+			push(" -> ");
 
 			//check for next production
 			for(int j=i; j<gl ;j++)
@@ -92,9 +92,9 @@ void removeLeftRecursion(const char* g){
 						
 					t=grammar.S;
 					push(&t);
-					push("'|");
+					push("' | ");
 				}
-			newGrammar.P[ngInd-1] = ' ';	//remove extra pipe	
+			newGrammar.P[ngInd-2] = ' ';	//remove extra pipe	
 			push("\n");
 		}
 	
@@ -103,7 +103,7 @@ void removeLeftRecursion(const char* g){
 		if(g[i] == grammar.S){
 			char t=g[i];
 			push(&t);
-			push("'->");
+			push("' -> ");
 
 			//push productions for the prime variable
 			for(int j=i+1; j<gl ;j++){
@@ -114,7 +114,7 @@ void removeLeftRecursion(const char* g){
 
 			t=grammar.S;
 			push(&t);
-			push("'|ε"); 
+			push("' | ε"); 
 		}
 	
 }
@@ -151,7 +151,7 @@ P: S->Sad|d|ce
 
 Grammar after removing left recursion: 
 
-S->dS'|ceS' 
-S'->adS'|$
+S -> dS' | ceS'   
+S' -> adS' | ε
 
  */
