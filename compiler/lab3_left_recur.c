@@ -8,9 +8,8 @@
 	after removal of left recursion
 
 	S -> dS' | ceS'
-	S' -> adS' | $
+	S' -> adS' | ε
 
-	here $ is represented as epsilon
 */
 
 #include<stdio.h>
@@ -36,7 +35,7 @@ int ngInd=0,gl=0,vInd=0,tInd=0;
 //function to set the terminal and variables in the grammar
 void setVarsAndTerminals(const char* g){
 	grammar.S = g[0]; //set the starting symbol
-	
+
 	//check and set terminals
 	for(int i=0; i<gl; i++)
 		if(islower(g[i]))
@@ -115,7 +114,7 @@ void removeLeftRecursion(const char* g){
 
 			t=grammar.S;
 			push(&t);
-			push("'|$"); 
+			push("'|ε"); 
 		}
 	
 }
