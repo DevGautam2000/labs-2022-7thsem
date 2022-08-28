@@ -8,7 +8,7 @@
 	after removal of left recursion
 
 	S -> dS' | ceS'
-	S' -> adS' | ε
+	S' -> adS' | $
 
 */
 
@@ -114,7 +114,7 @@ void removeLeftRecursion(const char* g){
 
 			t=grammar.S;
 			push(&t);
-			push("' | ε"); 
+			push("' | $"); 
 		}
 	
 }
@@ -152,6 +152,7 @@ P: S->Sad | d | ce
 Grammar after removing left recursion: 
 
 S -> dS' | ceS'   
-S' -> adS' | ε
+S' -> adS' | $
+
 
  */
