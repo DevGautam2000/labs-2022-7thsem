@@ -50,8 +50,8 @@ struct stack {
 struct stack st = {EMPTY,""};
 
 void push(char c){
-    if(st.top == LEN || st.top == -1) return; 
-    st.buff[st.top++] = c;
+    if(st.top == LEN-1) return; 
+    st.buff[++st.top] = c;
 }
 
 void pop(){
@@ -60,8 +60,8 @@ void pop(){
 }
 
 char peek(){
-    if(st.top == EMPTY) return '\0'; 
-    return st.buff[st.top-1];
+    if(st.top == EMPTY) return NA; 
+    return st.buff[st.top];
 }
 
 void emptyStack(){
@@ -92,7 +92,6 @@ void func(){
 //function to check if the given string is valid or not according to the grammar
 void checkValidString(const char *s){
 
-        st.top++; //advance the stack top
         push(*dp); //push the character pointed by dp
         char curr = peek(); //peek the pushed character
 
