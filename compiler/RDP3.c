@@ -18,6 +18,7 @@
 #include<string.h>
 #include<ctype.h>
 
+//macros
 #define LEN 128
 #define EMPTY -1
 #define NA '\0'
@@ -27,43 +28,52 @@
 char *productions[LEN],*ip,*dp,currVar=' ';
 int isStringAccepted=0, iter=1;
 
+//function definitions
 void checkValidString(const char*);
 void func();
 
+//enum for variables in grammar
 enum variables {
     V1 = 'S',
     V2 = 'B',
     V3 = 'C'
 };
 
+//function to initialize the productions
 void initializeProductions(){
     productions[V1] = "a|aB";
     productions[V2] = "bC";
     productions[V3] = "c|cC";
 }
 
+//stack structure
 struct stack { 
     int top;
     char buff[LEN];
 };
 
+//initialize the stack var
 struct stack st = {EMPTY,""};
 
+//to psuh inot stack
 void push(char c){
     if(st.top == LEN-1) return; 
     st.buff[++st.top] = c;
 }
 
+//to pop from stack
 void pop(){
     if(st.top == EMPTY) return; 
     st.top--;
 }
 
+//to peek from stack
 char peek(){
     if(st.top == EMPTY) return NA; 
     return st.buff[st.top];
 }
 
+//to empty the stack
 void emptyStack(){
     while(st.top != EMPTY)
         pop();
