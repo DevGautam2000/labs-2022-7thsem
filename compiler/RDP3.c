@@ -55,7 +55,7 @@ struct stack {
 //initialize the stack var
 struct stack st = {EMPTY,""};
 
-//to psuh inot stack
+//to push into stack
 void push(char c){
     if(st.top == LEN-1) return; 
     st.buff[++st.top] = c;
