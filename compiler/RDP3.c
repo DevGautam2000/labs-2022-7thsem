@@ -9,7 +9,7 @@
     S = S
     P = {   S->a|aB
             B->bC
-            C->cC
+            C->c|cC
         }
 
 */
@@ -44,6 +44,16 @@ void initializeProductions(){
     productions[V1] = "a|aB";
     productions[V2] = "bC";
     productions[V3] = "c|cC";
+}
+
+void showGrammar(){
+    printf("GRAMMAR:\n\n");
+    printf("V: %c , %c , %c\n",V1,V2,V3);
+    printf("T: %c , %c , %c\n",'a','b','c');
+    printf("S: %c\n",V1);
+    printf("P: %c -> %s\n",V1,productions[V1]);
+    printf("%4c -> %s\n",V2,productions[V2]);
+    printf("%4c -> %s\n\n",V3,productions[V3]);
 }
 
 //stack structure
@@ -146,6 +156,7 @@ void checkValidString(const char *s){
 int main(){
     printf("\nRECURSIVE DESCENT PARSER \n\n");
     initializeProductions(); //initialize the map
+    showGrammar();
     
     //get input string
     char inp[LEN];
@@ -160,8 +171,8 @@ int main(){
 
     ip=inp; //point the input pointer to input string
  
-    char str[] = {V1,'\0'};
-    dp=str; //point the descent pointer to starting symbol
+    char startingSymbol[] = {V1,'\0'};
+    dp=startingSymbol; //point the descent pointer to starting symbol
 
     printf("\n");
 
@@ -179,6 +190,15 @@ INPUT/OUTPUT
 EXECUTION 1:
 
 RECURSIVE DESCENT PARSER 
+
+GRAMMAR:
+
+V: S , B , C
+T: a , b , c
+S: S
+P: S -> a|aB
+   B -> bC
+   C -> c|cC
 
 Enter a string: abcc
 
@@ -211,10 +231,18 @@ ITERATION 10 :  dp -> c , ip -> c
 
 STRING ACCEPTED BY PARSER.
 
-
 EXECUTION 2:
 
 RECURSIVE DESCENT PARSER 
+
+GRAMMAR:
+
+V: S , B , C
+T: a , b , c
+S: S
+P: S -> a|aB
+   B -> bC
+   C -> c|cC
 
 Enter a string: abd
 
