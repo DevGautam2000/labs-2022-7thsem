@@ -28,7 +28,7 @@
 char *productions[LEN],*ip,*dp,currVar=' ';
 int isStringAccepted=0, iter=1;
 
-//function definitions
+//function declarations
 void checkValidString(const char*);
 void func();
 
