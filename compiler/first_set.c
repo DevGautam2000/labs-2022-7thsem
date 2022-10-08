@@ -190,12 +190,12 @@ EXECUTION 2
 PROGRAM TO GENERATE FIRST SET FROM A GRAMMAR.
 
 Enter total productions: 3
-Enter production 1 : A=a|$
-Enter production 2 : B=Sf|b
-Enter production 3 : S=s|$
+Enter production 1 : A=aB|$
+Enter production 2 : B=SAf|b
+Enter production 3 : S=s
 
 FIRST(A) -> {a,$}
-FIRST(B) -> {s,b,f}
-FIRST(S) -> {s,$}
+FIRST(B) -> {s,b}
+FIRST(S) -> {s}
 
 */

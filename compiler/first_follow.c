@@ -5,22 +5,21 @@
 
 */
 
-
 #include<stdio.h>
 #include<string.h>
 #include<ctype.h>
 #include<stdlib.h>
 
-//macros
-#define EPSILON '$'
+#define EPSILON '#'
 #define PIPE '|'
 #define null '\0'
 
 const int LEN = 128;
+char startSymbol=' ';
 char* prod[LEN];
 char* firstSet[LEN];
+char* followSet[LEN];
 
-//funciton to copy a string pointed by a pointer
 char* copy(const char *alpha){
     int len = strlen(alpha) + 1;
     char* c = malloc(len);
@@ -28,7 +27,7 @@ char* copy(const char *alpha){
     return c;
 }
 
-//function to extract the production from the given variable
+
 char* substring(const char* source){
     char *c = copy(source);
     char *final=malloc(20);
@@ -37,7 +36,6 @@ char* substring(const char* source){
     return final;
 }
 
-//function to generate the first set from grammar
 void genFirstSet(){
     
     for(int i=0; i<LEN; i++){
@@ -46,14 +44,9 @@ void genFirstSet(){
                 // scan the whole input
                 char* temp = copy(prod[i]);
                 int ind=0;
-
                 firstSet[i]= malloc(20);
-
-                //assign the first variables/terminals in the production
                 firstSet[i][ind++] = *temp++;
 
-                //check if there is more than one production
-                //for a given variable
                 while (*temp != null){
 
                     if(*temp == PIPE){
@@ -71,27 +64,22 @@ void genFirstSet(){
             if(firstSet[i] != NULL){
                 char* temp = copy(firstSet[i]);
                 int ind=strlen(temp);
-                int prog[26]={0}; //to keep track so duplicates
+                int prog[26]={0};
                 while(*temp != null){
-                    if(isupper(*temp)){// if the first set contains a variable
+                    if(isupper(*temp)){
+                        
+
                         
                         char* ep = copy(firstSet[*temp]);
                         while(*ep!=null){
-
-                            //add the variable to a progress array to filter dupliates
-                            if(isalpha(*ep) && islower(*ep))
+                            if(isalpha(*ep) && islower(*ep)){
                                 prog[*ep-'a'] = 1;
-                            
-                            
-                            //if the variable has a epsilon in its first set
+                            }
                             if(*ep == EPSILON){
                                 if(islower(prod[i][1])){
-                                    
-                                    //if a duplicate
-                                    if(prog[prod[i][1]-'a'])
-                                        break;
-                                    
-                                    //add it to the set
+                                    if(prog[prod[i][1]-'a']){
+                                        break;;
+                                    }
                                     firstSet[i][ind++]=',';
                                     firstSet[i][ind]=prod[i][1];
                                 }
@@ -100,20 +88,15 @@ void genFirstSet(){
                             ep++;
                         }
 
-                        //if the current set has only one variable then
-                        //replace with the firstset of the variable in the 
-                        //set of the current set
+
                         if(ind<2){
                             firstSet[i]=firstSet[*temp];
                             break;
                         }
 
-                        //still if variable exists in set
-                        //then replace with the production 
-                        //of the variable in the set
-                        char* p = firstSet[i];
-                        if(isupper((p[0]))){
-                            p[0] = firstSet[p[0]][0];
+
+                        if(isupper(firstSet[i][0])){
+                            firstSet[i][0] = firstSet[firstSet[i][0]][0];
                         }
 
                     }
@@ -122,17 +105,42 @@ void genFirstSet(){
                 }
             }
     }
-}
 
-//function to show the first set
-void showFirstSet(){
     for(int i=0; i<LEN; i++){
-           if(firstSet[i] != NULL)
-             printf("FIRST(%c) -> {%s}\n",i,firstSet[i]);
+        if(firstSet[i] != NULL && isupper(firstSet[i][0])){
+            firstSet[i] = firstSet[firstSet[i][0]];
+        }
     }
+
 }
 
-//function to get the production as input
+
+void genFollowSet(){
+    struct remaining{
+        char ch;
+        char prod;
+    };
+
+    struct remaining rem[26] = {'\0','\0'};
+    
+    for(int i=0; i<LEN; i++){
+        int ind=0;
+        
+    }
+
+    
+}
+
+void showFirstFollow(){
+    printf("%s %20s %20s","VARIABLE","FIRST()","FOLLOW()");
+    printf("\n______________________________________________________\n\n");
+    for(int i=0; i<LEN; i++){
+           if(firstSet[i] != NULL || followSet[i] != NULL){
+             printf("%5c %15s {%s} %15s {%s}",i,"",firstSet[i],"",followSet[i]);
+             printf("\n______________________________________________________\n\n");
+    }}
+}
+
 void getProductions(){
     int tot=0;
     printf("\nEnter total productions: ");
@@ -142,18 +150,40 @@ void getProductions(){
         char inp[20][20];
         printf("Enter production %d : ",i+1);
         scanf(" %s",inp[i]);
+        if(i==0)
+            startSymbol=inp[i][0];
+        
         prod[inp[i][0]] = substring(inp[i]);
     }
 }
 
 int main(){
     
-    printf("\nPROGRAM TO GENERATE FIRST SET FROM A GRAMMAR.\n\n");
+    printf("\nPROGRAM TO GENERATE FIRST AND FOLLOW SET FROM A GRAMMAR.\n\n");
 
-    getProductions();
+    // getProductions();
+    // prod['E'] = "TR";
+    // prod['R'] = "+TR|#";
+    // prod['T'] = "FY";
+    // prod['Y'] = "*FY|#";
+    // prod['F'] = "(E)|i";
+    startSymbol='S';
+    prod['S']="aAbCD|#";
+    prod['A']="G";
+    prod['G']="SDG|#";
+    prod['B']="SaC|hC|#";
+    prod['C']="SfH";
+    prod['H']="gH|#";
+    prod['D']="aBD|#";
+    
+    // prod['A']="aB|#";
+    // prod['B']="SAf|b";
+    // prod['S']="s";
+
     genFirstSet();
+    genFollowSet();
     printf("\n");
-    showFirstSet();
+    showFirstFollow();
     
     return 0;
 }
