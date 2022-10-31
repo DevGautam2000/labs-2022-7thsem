@@ -1,0 +1,5 @@
+S->aAbCD|#
+A->aSD|#
+B->SaC|hC|#
+C->Sf|g
+D->aBD|#

@@ -12,7 +12,7 @@
 #include<stdlib.h>
 
 //macros
-#define EPSILON '$'
+#define EPSILON '#'
 #define PIPE '|'
 #define null '\0'
 
@@ -168,21 +168,21 @@ PROGRAM TO GENERATE FIRST SET FROM A GRAMMAR.
 
 
 Enter total productions: 7
-Enter production 1 : S=aAbCD|$
+Enter production 1 : S=aAbCD|#
 Enter production 2 : A=G
-Enter production 3 : G=SDG|$
-Enter production 4 : B=SaC|hC|$
+Enter production 3 : G=SDG|#
+Enter production 4 : B=SaC|hC|#
 Enter production 5 : C=SfH
-Enter production 6 : H=gH|$
-Enter production 7 : D=aBD|$
+Enter production 6 : H=gH|#
+Enter production 7 : D=aBD|#
 
-FIRST(A) -> {a,$}
-FIRST(B) -> {a,h,$}
+FIRST(A) -> {a,#} 
+FIRST(B) -> {a,h,#} 
 FIRST(C) -> {a,f}
-FIRST(D) -> {a,$}
-FIRST(G) -> {a,$}
-FIRST(H) -> {g,$}
-FIRST(S) -> {a,$}
+FIRST(D) -> {a,#}
+FIRST(G) -> {a,#}
+FIRST(H) -> {g,#}
+FIRST(S) -> {a,#}
 
 
 EXECUTION 2
@@ -190,11 +190,11 @@ EXECUTION 2
 PROGRAM TO GENERATE FIRST SET FROM A GRAMMAR.
 
 Enter total productions: 3
-Enter production 1 : A=aB|$
+Enter production 1 : A=aB|#
 Enter production 2 : B=SAf|b
 Enter production 3 : S=s
 
-FIRST(A) -> {a,$}
+FIRST(A) -> {a,#}
 FIRST(B) -> {s,b}
 FIRST(S) -> {s}
 

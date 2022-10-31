@@ -27,3 +27,5 @@ int main(){
     printf("THe value is: n1: %c\n\n", n1->right->val);
     return 0;
 }
+
+

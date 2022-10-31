@@ -10,7 +10,9 @@
 #include <ctype.h>
 
 //syntax to be parsed
-const char* inp = "for(i=10;i<100;i++);";
+// const char* inp = "for(i=10;i<100;i++);";
+const char* inp = "int a=10*2*(3+5);";
+// const char* inp = "char a='2';";
 
 //enum storing token types
 enum TokenType { 
@@ -33,10 +35,10 @@ const char *tokenTypeStrings[] = {
 };
 
 //list of keywords,operators,numbers,etc., to be parsed
-const char* KEYWORDS[] = {"for","int","if"};
+const char* KEYWORDS[] = {"for","int","if","else","const","double","char","float","struct"};
 const char OPERATORS[] = {'<','=','+','*','-','/','%','>'};
 const char NUMBERS[] = {'0','1','2','3','4','5','6','7','8','9'};
-const char SPECIAL_CHAR[]= {'(',')',';','{','}'};
+const char SPECIAL_CHAR[]= {'(',')',';','{','}','\''};
 const char COMMA=',';
 const char WHITE_SPACE=' ';
 
@@ -153,10 +155,12 @@ void parse(const char *s){
         }
 }
 
-void main(){
+int main(){
 
     printf("LEXICAL ANALYZER \nSYNTAX: %s\n\n",inp);
     parse(inp);   
+
+    return 0;
 }
 
 
