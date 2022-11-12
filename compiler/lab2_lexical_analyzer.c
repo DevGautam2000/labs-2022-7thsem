@@ -11,9 +11,10 @@
 
 //syntax to be parsed
 // const char* inp = "for(i=10;i<100;i++);";
-const char* inp = "int a=10*2*(3+5);";
+// const char* inp = "int a=10*2*(3+5);";
 // const char* inp = "char a='2';";
 
+char* inp;
 //enum storing token types
 enum TokenType { 
     OP, //operator
@@ -157,7 +158,11 @@ void parse(const char *s){
 
 int main(){
 
-    printf("LEXICAL ANALYZER \nSYNTAX: %s\n\n",inp);
+    printf("LEXICAL ANALYZER \n\n");
+    char syntax[100];
+    printf("Enter a string: ");
+    fgets(syntax, 100, stdin);
+    inp = syntax;
     parse(inp);   
 
     return 0;
@@ -167,23 +172,22 @@ int main(){
 /* 
 
 INPUT/OUPUT
-
 LEXICAL ANALYZER 
-SYNTAX: for(i=10;i<100;i++);
 
+Enter a string: for(int i=10; i<20; i++)
 Token 1: < KEYWORD , for >
 Token 2: < SPECIAL TOKEN CLASS , ( >
-Token 3: < IDENTIFIER , i >
-Token 4: < OPERATOR , = >
-Token 5: < NUMBER , 10 >
-Token 6: < SPECIAL TOKEN CLASS , ; >
-Token 7: < IDENTIFIER , i >
-Token 8: < OPERATOR , < >
-Token 9: < NUMBER , 100 >
-Token 10: < SPECIAL TOKEN CLASS , ; >
-Token 11: < IDENTIFIER , i >
-Token 12: < OPERATOR , ++ >
-Token 13: < SPECIAL TOKEN CLASS , ) >
-Token 14: < SPECIAL TOKEN CLASS , ; >
+Token 3: < KEYWORD , int >
+Token 4: < IDENTIFIER ,  i >
+Token 5: < OPERATOR , = >
+Token 6: < NUMBER , 10 >
+Token 7: < SPECIAL TOKEN CLASS , ; >
+Token 8: < IDENTIFIER ,  i >
+Token 9: < OPERATOR , < >
+Token 10: < NUMBER , 20 >
+Token 11: < SPECIAL TOKEN CLASS , ; >
+Token 12: < IDENTIFIER ,  i >
+Token 13: < OPERATOR , ++ >
+Token 14: < SPECIAL TOKEN CLASS , ) >
 
  */
